@@ -1,13 +1,13 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <header>
-  <nav>
-    <h1 id="title">
-      {{ title }}!
-    </h1>
-    <a>Home</a>
-    <a>Favorites</a>
-  </nav>
+    <nav>
+        <h1 id="title">
+        {{ title }}!
+        </h1>
+        <a routerLink="/home">Home</a>
+        <a routerLink="/favorites">Favorites</a>
+      </nav>
 </header>
 <section id="search-bar">
-  <app-search-bar></app-search-bar>
+  <router-outlet></router-outlet>
 </section>

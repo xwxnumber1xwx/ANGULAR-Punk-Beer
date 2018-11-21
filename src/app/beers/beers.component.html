@@ -5,8 +5,9 @@
     <div class="favorite-icon" (click)="addFavorite($event, beer.id)"></div>
     <img src="{{beer.image_url}}">
     <article class="description">
-      <h2>{{beer.name}}</h2>
+      <h2>{{beer.name | maxLength:35}}</h2>
       <p>{{beer.description | maxLength:120 }}</p>
+      <a routerLink="/detail/{{beer.id}}">Read more...</a>
     </article>
   </div>
 </section>

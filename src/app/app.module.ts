@@ -8,6 +8,7 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { BeersComponent } from './beers/beers.component';
 import { MaxLengthPipe } from './max-length.pipe';
+import { BeerDetailsComponent } from './beer-details/beer-details.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { MaxLengthPipe } from './max-length.pipe';
     SearchBarComponent,
     FavoritesComponent,
     BeersComponent,
-    MaxLengthPipe
+    MaxLengthPipe,
+    BeerDetailsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,21 @@
+<section *ngIf="beer; else noInfo">
+<h1>{{beer.name}}</h1>
+<p><b>tagline</b>{{beer.tagline}}</p>
+<img src="{{beer.image_url}}" alt="an image of the beer">
+<p><b>first_brewed </b>{{beer.first_brewed}}</p>
+<p><b>Description:</b>{{beer.description}}</p>
+<p>
+<b>abv:</b> {{beer.abv}}
+<b>yeast:</b> {{beer.yeast}}
+<b>food_pairing:</b> {{beer.food_pairing}}
+<b>brewers_tips:</b> {{beer.brewers_tips}}
+</p>
+
+
+</section>
+<ng-template #noInfo>
+  <p>Sorry, no information available</p>
+</ng-template>
+
+
+<button (click)="goBack()">go back</button>

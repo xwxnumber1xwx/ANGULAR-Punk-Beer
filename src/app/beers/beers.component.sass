@@ -1,29 +1,32 @@
 .beer-info
-    width:  350px
+    width:  340px
     height: 250px
-    border: 1px solid blue
-    text-align: center
+    border: 1px solid grey
+    box-shadow: 3px 2px 10px grey
+    text-align: left
     display: flex
     flex-wrap: wrap
     overflow: hidden
-    margin: 10px 2% 10px
+    margin: 10px auto 10px
     position: relative
 
     img
-        width: 10%
+        width: 17%
         height: auto
         margin: auto
 
     h2
         width: 100%
+        margin: 0
 
     .description
-        width: 50%
+        width: 60%
         margin: auto
 
 .flex
     display: flex
     flex-wrap: wrap
+    margin-top: 30px
 
 .favorite-icon
     position: absolute
@@ -41,3 +44,6 @@
 .favorite
     &:after
         content: '★' !important
+
+.push-right
+    float: right
