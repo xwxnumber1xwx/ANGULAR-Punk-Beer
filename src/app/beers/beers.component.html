@@ -1,7 +1,12 @@
-
 <button (click)="getBeer(query)">Find my Beer!</button>
 
-<p>
-  beers works!
-  {{allBeers}}
-</p>
+<section class="flex">
+  <div class="beer-info" *ngFor="let beer of allBeers">
+    <div class="favorite-icon" (click)="addFavorite($event, beer.id)"></div>
+    <img src="{{beer.image_url}}">
+    <article class="description">
+      <h2>{{beer.name}}</h2>
+      <p>{{beer.description | maxLength:120 }}</p>
+    </article>
+  </div>
+</section>

@@ -7,13 +7,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { BeersComponent } from './beers/beers.component';
+import { MaxLengthPipe } from './max-length.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchBarComponent,
     FavoritesComponent,
-    BeersComponent
+    BeersComponent,
+    MaxLengthPipe
   ],
   imports: [
     BrowserModule,
