@@ -1,21 +1,22 @@
-<section *ngIf="beer; else noInfo">
-<h1>{{beer.name}}</h1>
-<p><b>tagline</b>{{beer.tagline}}</p>
-<img src="{{beer.image_url}}" alt="an image of the beer">
-<p><b>first_brewed </b>{{beer.first_brewed}}</p>
-<p><b>Description:</b>{{beer.description}}</p>
-<p>
-<b>abv:</b> {{beer.abv}}
-<b>yeast:</b> {{beer.yeast}}
-<b>food_pairing:</b> {{beer.food_pairing}}
-<b>brewers_tips:</b> {{beer.brewers_tips}}
-</p>
+<article id="details" *ngIf="beer; else noInfo">
+  <button class="push-right" (click)="goBack()">go back</button>
+  <section class="flex">
+    <img class="col-3 img-beer" src="{{beer.image_url}}" alt="an image of the beer">
+    <div class="col-9 text-left">
+      <h1>{{beer.name}}</h1>
+      <h2>{{beer.tagline}}</h2>
+      <p><b>first_brewed </b>{{beer.first_brewed}}</p>
+      <p><b>Description:</b>{{beer.description}}</p>
+      <p><b>alcohol:</b> {{beer.abv}}%</p>
+      <p><b>Food pairing:</b> {{beer.food_pairing}}</p>
+      <p><b>Brewers tips:</b> {{beer.brewers_tips}}</p>
+    </div>
+  </section>
 
-
-</section>
+</article>
 <ng-template #noInfo>
   <p>Sorry, no information available</p>
+  <button (click)="goBack()">go back</button>
 </ng-template>
 
 
-<button (click)="goBack()">go back</button>
