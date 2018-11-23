@@ -13,4 +13,5 @@ export class SearchBarComponent implements OnInit {
   }
 
   query: string;
+
 }

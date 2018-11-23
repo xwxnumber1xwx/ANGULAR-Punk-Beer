@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PunkBeerApiService } from '../punk-beer-api.service'
+import { StorageService } from '../storage.service'
 
 @Component({
   selector: 'app-beers',
@@ -10,42 +11,62 @@ export class BeersComponent implements OnInit {
 
   @Input() query: string;
   allBeers: any[] = [];
-  favorites: number[] = [];
+  favorites: Number[] = [];
+  searchBar = document.querySelector('#search-bar')
 
-  constructor(private PunkBeerApi: PunkBeerApiService) { }
+  constructor(private PunkBeerApi: PunkBeerApiService, private storageService: StorageService) { }
 
-  ngOnInit() { }
+  ngOnInit () {
+    // get favorites from localStorage
+    this.favorites = this.storageService.getStorage('favorites');
+    // add an eventListener to the Searchbar component for the "Enter" key
+    this.searchBar.addEventListener('keypress', (event: any) => {
+      if (event.code === "Enter") {
+        this.getBeer(event.target.value);
+      }
+    })
+  }
+
 
   //get beers from Api
-  getBeer(query): void {
+  getBeer(query: string): void {
     this.PunkBeerApi.getBeers(query)
-    .then(response => {
-      console.log('status: ' + response.status);
-      console.log(response.json()
-      .then(data => {
-        this.allBeers = data;
-        console.log(data);
-        })
-      );
-    });
-  };
+      .then(response => {
+        console.log('status: ' + response.status);
+        console.log(response.json()
+          .then(data => {
+            this.allBeers = data;
+            console.log(data);
+          })
+        );
+      });
+      setTimeout( () => {
+        this.addFavoriteIcon(this.allBeers);
+      },1000);
+  }
 
+  //add favorite icon if beers are already into the favorite list
+  addFavoriteIcon(beers: any[]) {
+    let alreadyFavorites = beers.filter(beer => this.favorites.indexOf(beer.id) >= 0);
+    alreadyFavorites.forEach(beer => {
+      document.getElementById(beer.id).children[0].classList.toggle('favorite');
+      console.log('toggle ' + beer.id);
+    })
+  }
   //toggle favorite icon
-  addFavorite(event, id): void {
+  addFavorite(event: any, id: Number): void {
     console.log('beer id: ' + id);
-    console.log(event);
-    console.log(event.target);
     event.target.classList.toggle('favorite');
     // check if the user add or remove a beer into the favorites
     let position = this.favorites.indexOf(id);
     if (position < 0) {
       //add beer into favorites
       this.favorites.push(id);
-      console.log(this.favorites)
     } else {
       // remove beer from the favorites
       this.favorites.splice(position, 1);
-      console.log(this.favorites)
     }
+    //add favorites array on localStorage
+    this.storageService.setStorage('favorites', this.favorites);
   }
 }
