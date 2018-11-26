@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -7,31 +8,30 @@ export class PunkBeerApiService {
 
   url: string = 'https://api.punkapi.com/v2/beers'
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   getBeers(query?: string): any {
     if (query) {
-      console.log(query)
-      return fetch(`${this.url}?beer_name=${query}`);
+      return this.http.get(`${this.url}?beer_name=${query}`);
     } else {
-      return fetch(`${this.url}/random`);
+      return this.http.get(`${this.url}/random`);
     }
   }
 
-  getBeersFromId(id: number): any {
+  getBeersFromId(id: Number): any {
     if (id) {
-        return fetch(`${this.url}?ids=${id}`)
-      } else {
-        return null
-      }
-    }
-
-  getBeersFromIds(ids: number[]): any {
-  if (ids) {
-      let parameter = ids.toString().replace(',', '|');
-      return fetch(`${this.url}?ids=${parameter}`)
+      return this.http.get(`${this.url}?ids=${id}`);
     } else {
-      return null
+      return [];
+    }
+  }
+
+  getBeersFromIds(ids: Number[]): any {
+    if (ids) {
+      let parameter: string = ids.toString().replace(/,/g, '|');
+      return this.http.get(`${this.url}?ids=${parameter}`);
+    } else {
+      return [];
     }
   }
 }

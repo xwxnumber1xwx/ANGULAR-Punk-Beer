@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PunkBeerApiService } from '../punk-beer-api.service'
-import { StorageService } from '../storage.service'
+import { PunkBeerApiService } from '../punk-beer-api.service';
+import { StorageService } from '../storage.service';
 
 @Component({
   selector: 'app-beers',
@@ -16,7 +16,7 @@ export class BeersComponent implements OnInit {
 
   constructor(private PunkBeerApi: PunkBeerApiService, private storageService: StorageService) { }
 
-  ngOnInit () {
+  ngOnInit() {
     // get favorites from localStorage
     this.favorites = this.storageService.getStorage('favorites');
     // add an eventListener to the Searchbar component for the "Enter" key
@@ -27,22 +27,17 @@ export class BeersComponent implements OnInit {
     })
   }
 
-
-  //get beers from Api
-  getBeer(query: string): void {
+  //get beers from Api using angular http
+  getBeer(query?:string):void {
     this.PunkBeerApi.getBeers(query)
-      .then(response => {
-        console.log('status: ' + response.status);
-        console.log(response.json()
-          .then(data => {
-            this.allBeers = data;
-            console.log(data);
-          })
-        );
-      });
-      setTimeout( () => {
-        this.addFavoriteIcon(this.allBeers);
-      },1000);
+    .subscribe(data => {
+      console.log('data http');
+      console.log(data);
+      this.allBeers = data;
+    })
+    setTimeout(() => {
+      this.addFavoriteIcon(this.allBeers);
+    }, 1000);
   }
 
   //add favorite icon if beers are already into the favorite list

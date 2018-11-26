@@ -1,3 +1,11 @@
-<p>
-  favorites works!
-</p>
+<section class="flex">
+  <div id="{{beer.id}}" class="beer-info" *ngFor="let beer of favoritesBeers">
+    <div class="favorite-icon favorite" (click)="removeFavorite($event, beer.id)"></div>
+    <img src="{{beer.image_url}}">
+    <article class="description">
+      <h2>{{beer.name | maxLength:35}}</h2>
+      <p>{{beer.description | maxLength:120 }}</p>
+      <a routerLink="/detail/{{beer.id}}">Read more...</a>
+    </article>
+  </div>
+</section>

@@ -18,6 +18,11 @@ export class StorageService {
   getStorage(key: string): Number[] {
     let array: Number[] = [];
     array = JSON.parse(localStorage.getItem(key));
+    if (!array) {
+      array = [];
+    }
+    console.log('array');
+    console.log(array);
     return array;
   }
 
