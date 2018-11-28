@@ -1,5 +1,9 @@
+<section>
+  <input id="filter" type="search" placeholder="Filter..." [(ngModel)]="filter">
+</section>
+
 <section class="flex">
-  <div id="{{beer.id}}" class="beer-info" *ngFor="let beer of favoritesBeers">
+  <div id="{{beer.id}}" class="beer-info" *ngFor="let beer of filteredBeer">
     <div class="favorite-icon favorite" (click)="removeFavorite($event, beer.id)"></div>
     <img src="{{beer.image_url}}">
     <article class="description">

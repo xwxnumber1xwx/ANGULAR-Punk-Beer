@@ -11,6 +11,8 @@ export class FavoritesComponent implements OnInit {
 
   favoritesID: Number[] = [];
   favoritesBeers: any[] = [];
+  filter: string = "";
+  filteredBeer: any[] = [];
 
   constructor(private storageService: StorageService, private PunkBeerApiService: PunkBeerApiService) { }
 
@@ -19,8 +21,16 @@ export class FavoritesComponent implements OnInit {
     this.PunkBeerApiService.getBeersFromIds(this.favoritesID)
       .subscribe(data => {
         this.favoritesBeers = data;
-        console.log(this.favoritesBeers);
+        this.filteredBeer = data;
       });
+      document.getElementById('filter').addEventListener('input', ()  => {
+        if (!this.filter) {
+          this.filteredBeer = this.favoritesBeers;
+        } else {
+          // check if the filter match
+          this.filteredBeer = this.favoritesBeers.filter(beer => beer.name.toLowerCase().indexOf(this.filter.toLowerCase()) >= 0);
+        }
+      })
   }
 
   removeFavorite(event: any, id: Number): void {
