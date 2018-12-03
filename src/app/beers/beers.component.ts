@@ -11,16 +11,21 @@ export class BeersComponent implements OnInit {
 
   @Input() query: string;
   allBeers: any[] = [];
-  favorites: Number[] = [];
-  searchBar = document.querySelector('#search-bar')
+  notFoundMessage: string = '';
+  favorites: any[] = [];
 
-  constructor(private PunkBeerApi: PunkBeerApiService, private storageService: StorageService) { }
+  constructor(
+    private PunkBeerApi: PunkBeerApiService,
+    private storageService: StorageService
+  ) { }
 
   ngOnInit() {
+    this.allBeers = this.PunkBeerApi.getLastSearch();
     // get favorites from localStorage
     this.favorites = this.storageService.getStorage('favorites');
-    // add an eventListener to the Searchbar component for the "Enter" key
-    this.searchBar.addEventListener('keypress', (event: any) => {
+    // add an eventListener to the Search-bar component for the "Enter" key
+    let searchBar: Element = document.querySelector('#search-bar');
+    searchBar.addEventListener('keypress', (event: any) => {
       if (event.code === "Enter") {
         this.getBeer(event.target.value);
       }
@@ -28,30 +33,33 @@ export class BeersComponent implements OnInit {
   }
 
   //get beers from Api using angular http
-  getBeer(query?:string):void {
+  getBeer(query?: string): void {
     this.PunkBeerApi.getBeers(query)
-    .subscribe(data => {
-      console.log('data http');
-      console.log(data);
-      this.allBeers = data;
-    })
-    setTimeout(() => {
-      this.addFavoriteIcon(this.allBeers);
-    }, 1000);
+      .subscribe(data => {
+        console.log('data http');
+        console.log(data);
+        this.allBeers = data;
+        this.PunkBeerApi.setLastSearch(data);
+        if (this.allBeers.length > 0) {
+          this.notFoundMessage = '';
+        } else {
+          this.notFoundMessage = 'Sorry, no beers with this name are available';
+        }
+      })
   }
 
   //add favorite icon if beers are already into the favorite list
-  addFavoriteIcon(beers: any[]) {
-    let alreadyFavorites = beers.filter(beer => this.favorites.indexOf(beer.id) >= 0);
-    alreadyFavorites.forEach(beer => {
-      document.getElementById(beer.id).children[0].classList.toggle('favorite');
-      console.log('toggle ' + beer.id);
-    })
+  checkFavorite(id): boolean {
+    let result: boolean = false;
+    if (this.favorites.indexOf(id) >= 0) {
+      result = true;
+    }
+    return result;
   }
+
   //toggle favorite icon
-  addFavorite(event: any, id: Number): void {
+  addFavorite(id: Number): void {
     console.log('beer id: ' + id);
-    event.target.classList.toggle('favorite');
     // check if the user add or remove a beer into the favorites
     let position = this.favorites.indexOf(id);
     if (position < 0) {
@@ -63,5 +71,6 @@ export class BeersComponent implements OnInit {
     }
     //add favorites array on localStorage
     this.storageService.setStorage('favorites', this.favorites);
+    // store the new favorite list on dataService (need it for beerDetails component)
   }
 }

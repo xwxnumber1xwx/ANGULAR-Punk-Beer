@@ -1,39 +1,53 @@
+$primaryColor:  #3867ff
+$shadows: 0 4px 6px 0 hsla(0, 0%, 0%, 0.2)
+
 .beer-info
     width:  340px
+    min-width: 340px
     height: 250px
+    min-height: 250px
     border: 1px solid grey
-    box-shadow: 3px 2px 10px grey
+    box-shadow: $shadows
     text-align: left
     display: flex
     flex-wrap: wrap
     overflow: hidden
-    margin: 10px auto 10px
+    margin: 20px
+    //margin: 10px auto 10px
     position: relative
+    border-left: 6px solid $primaryColor
 
     img
         width: 17%
         height: auto
-        margin: auto
+        margin: auto 10px
+        margin-left: 10px
 
     h2
         width: 100%
         margin: 0
 
     .description
-        width: 60%
+        width: 70%
         margin: auto
+        position: absolute
+        right: 10px
+        top: 30px
 
 .flex
     display: flex
     flex-wrap: wrap
-    margin-top: 30px
+    margin: 30px auto
+    position: relative
 
 .favorite-icon
     position: absolute
     right: 8px
-    color: blue
+    color: $primaryColor
     font-size: 25px
     cursor: pointer
+    background: transparent
+    border: 0
 
     &:after
         content: '☆'
@@ -47,3 +61,23 @@
 
 .push-right
     float: right
+
+.button
+    background: $primaryColor
+    color: white
+    width: 150px
+    height: 35px
+    font-size: larger
+    position: absolute
+    right: 10px
+    bottom: 10px
+    border-radius: 10px
+    cursor: pointer
+
+#search-button
+    background: $primaryColor
+    color: white
+    width: 120px
+    height: 38px
+    font-size: larger
+    margin-left: 10px

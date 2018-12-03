@@ -6,7 +6,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PunkBeerApiService {
 
-  url: string = 'https://api.punkapi.com/v2/beers'
+  url: string = 'https://api.punkapi.com/v2/beers';
+  // store the last search, it is usefully when the user go back to the main page from beers-details component
+  lastSearch: any[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -33,5 +35,11 @@ export class PunkBeerApiService {
     } else {
       return [];
     }
+  }
+  setLastSearch(lastSearch: any[]): void {
+    this.lastSearch = lastSearch;
+  }
+  getLastSearch(): any[] {
+    return this.lastSearch;
   }
 }

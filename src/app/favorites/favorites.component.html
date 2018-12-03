@@ -1,15 +1,15 @@
 <section>
-  <input id="filter" type="search" placeholder="Filter..." [(ngModel)]="filter">
+  <input id="filter" type="search" placeholder="Filter..." [(ngModel)]="filter" aria-label="write a beer's name to find it on your favorite list">
 </section>
 
 <section class="flex">
   <div id="{{beer.id}}" class="beer-info" *ngFor="let beer of filteredBeer">
-    <div class="favorite-icon favorite" (click)="removeFavorite($event, beer.id)"></div>
-    <img src="{{beer.image_url}}">
+    <button class="favorite-icon favorite" type="checkbox" (click)="removeFavorite($event, beer.id)" aria-label="click to remove this beer to your favorite list"></button>
+    <img src="{{beer.image_url}}" alt="an image of {{beer.name}}">
     <article class="description">
-      <h2>{{beer.name | maxLength:35}}</h2>
+      <h2>{{beer.name | maxLength:30}}</h2>
       <p>{{beer.description | maxLength:120 }}</p>
-      <a routerLink="/detail/{{beer.id}}">Read more...</a>
     </article>
+    <button class="button" routerLink="/detail/{{beer.id}}" role="link">Read more...</button>
   </div>
 </section>

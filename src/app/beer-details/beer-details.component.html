@@ -1,9 +1,8 @@
 <article id="details" *ngIf="beer; else noInfo">
-  <button class="push-right" (click)="goBack()">go back</button>
   <section class="flex">
-    <div id="beer-spec" class="favorite-icon" (click)="addFavorite()"></div>
-    <img class="col-3 img-beer" src="{{beer.image_url}}" alt="an image of the beer">
+    <img class="col-3 img-beer" src="{{beer.image_url}}" alt="an image of {{beer.name}}">
     <div class="col-9 text-left">
+      <button id="beer-spec" type="checkbox" class="favorite-icon big-star" [ngClass]="{'favorite': checkFavorite(beer.id)}"  (click)="addFavorite()" aria-label="click to add this beer to your favorite list"></button>
       <h1>{{beer.name}}</h1>
       <h2>{{beer.tagline}}</h2>
       <p><b>first_brewed </b>{{beer.first_brewed}}</p>
@@ -12,12 +11,11 @@
       <p><b>Food pairing:</b> {{beer.food_pairing}}</p>
       <p><b>Brewers tips:</b> {{beer.brewers_tips}}</p>
     </div>
+    <button class="button favorite-button" (click)="goBack()">go back</button>
   </section>
 
 </article>
 <ng-template #noInfo>
-  <p>Sorry, no information available</p>
-  <button (click)="goBack()">go back</button>
+  <p>{{notFoundMessage}}</p>
+  <button class="button favorite-button" (click)="goBack()">go back</button>
 </ng-template>
-
-

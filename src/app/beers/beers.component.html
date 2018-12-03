@@ -1,13 +1,16 @@
-<button (click)="getBeer(query)">Find my Beer!</button>
+<button id="search-button" (click)="getBeer(query)">Find Beers!</button>
 
-<section class="flex">
-  <div id="{{beer.id}}" class="beer-info" *ngFor="let beer of allBeers">
-    <div class="favorite-icon" (click)="addFavorite($event, beer.id)"></div>
-    <img src="{{beer.image_url}}">
+<section class="flex" *ngIf="allBeers.length > 0; else noInfo">
+  <div id="{{beer.id}}" class="beer-info" *ngFor="let beer of allBeers" >
+    <button class="favorite-icon" type="checkbox" [ngClass]="{'favorite': checkFavorite(beer.id)}" (click)="addFavorite(beer.id)" aria-label="click to add or remove this beer to your favorite list"></button>
+    <img src="{{beer.image_url}}" alt="{{beer.name}}">
     <article class="description">
-      <h2>{{beer.name | maxLength:35}}</h2>
+      <h2>{{beer.name | maxLength:30}}</h2>
       <p>{{beer.description | maxLength:120 }}</p>
-      <a routerLink="/detail/{{beer.id}}">Read more...</a>
     </article>
+    <button class="button" routerLink="/detail/{{beer.id}}" role="link">Read more...</button>
   </div>
 </section>
+<ng-template #noInfo>
+  <p>{{notFoundMessage}}</p>
+</ng-template>
