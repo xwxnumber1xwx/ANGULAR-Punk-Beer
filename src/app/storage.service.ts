@@ -15,8 +15,8 @@ export class StorageService {
   }
 
   //get favorites from localStorage
-  getStorage(key: string): Number[] {
-    let array: Number[] = [];
+  getStorage(key: string): number[] {
+    let array: number[] = [];
     array = JSON.parse(localStorage.getItem(key));
     if (!array) {
       array = [];

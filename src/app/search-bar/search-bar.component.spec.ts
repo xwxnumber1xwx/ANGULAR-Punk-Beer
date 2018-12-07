@@ -1,6 +1,10 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { SearchBarComponent } from './search-bar.component';
+import { BeersComponent } from '../beers/beers.component';
+import { MaxLengthPipe } from '../max-length.pipe';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 describe('SearchBarComponent', () => {
   let component: SearchBarComponent;
@@ -8,9 +12,18 @@ describe('SearchBarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SearchBarComponent ]
+      declarations: [
+        SearchBarComponent,
+        BeersComponent,
+        MaxLengthPipe
+      ],
+      imports: [
+        FormsModule,
+        RouterTestingModule,
+        HttpClientTestingModule
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +32,12 @@ describe('SearchBarComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+  it('should create',
+    inject(
+      [HttpTestingController],
+      () => {
+        expect(component).toBeTruthy();
+      }
+    )
+  )
 });
