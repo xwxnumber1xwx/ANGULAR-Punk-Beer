@@ -9,7 +9,7 @@ import { PunkBeerApiService } from '../punk-beer-api.service';
 })
 export class FavoritesComponent implements OnInit {
 
-  favoritesID: Number[] = [];
+  favoritesID: number[] = [];
   favoritesBeers: any[] = [];
   filter: string = "";
   filteredBeer: any[] = [];
@@ -33,7 +33,7 @@ export class FavoritesComponent implements OnInit {
       })
   }
 
-  removeFavorite(event: any, id: Number): void {
+  removeFavorite(event: any, id: number): void {
     // remove class favorite, it makes sure that in the search bar does not appear as a favorite
     event.target.classList.remove('favorite');
     // remove beer from layout

@@ -17,13 +17,12 @@ export class StorageService {
   //get favorites from localStorage
   getStorage(key: string): number[] {
     let array: number[] = [];
-    array = JSON.parse(localStorage.getItem(key));
-    if (!array) {
-      array = [];
+    if (localStorage) {
+      array = JSON.parse(localStorage.getItem(key));
+      if (!array) {
+        array = [];
+      }
     }
-    console.log('array');
-    console.log(array);
     return array;
   }
-
 }

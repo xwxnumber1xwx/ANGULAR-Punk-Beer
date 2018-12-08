@@ -8,6 +8,7 @@ describe('BeersComponent', () => {
   let component: BeersComponent;
   let fixture: ComponentFixture<BeersComponent>;
 
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, HttpClientTestingModule],
@@ -36,15 +37,35 @@ describe('BeersComponent', () => {
     [HttpTestingController],
     () => {
       component.allBeers = [
-        { name: "test1" },
+        { name: "test3" },
         { name: "test2" },
-        { name: "test3" }
+        { name: "test1" }
       ];
       let result = component.sortBy("name", component.allBeers);
       expect(component.allBeers.length).toEqual(result.length);
     }
-  )
-  );
+  ));
+
+  it('checkFavorite must return an array with reverse order', inject(
+    [HttpTestingController],
+    () => {
+      component.allBeers = [
+        { name: "test3", first_brewed: "03/2010" },
+        { name: "test2", first_brewed: "02/2010"  },
+        { name: "test1", first_brewed: "01/2010"  }
+      ];
+      let reversedArray = [
+        { name: "test1", first_brewed: "01/2010"  },
+        { name: "test2", first_brewed: "02/2010"  },
+        { name: "test3", first_brewed: "03/2010"  }
+      ];
+      let result = component.sortBy("name", component.allBeers);
+      expect(result).toEqual(reversedArray);
+
+      let resultDate = component.sortBy("first_brewed", component.allBeers);
+      expect(resultDate).toEqual(reversedArray);
+    }
+  ));
 
   it('checkFavorite must return true if an ID is in the array', inject(
     [HttpTestingController],
@@ -52,8 +73,7 @@ describe('BeersComponent', () => {
       component.favorites = [1, 2, 3];
       expect(component.checkFavorite(1)).toBeTruthy();
     }
-  )
-  )
+  ));
 
   it('addFavorite must return true if an new id is added into an array and vice-versa', inject(
     [HttpTestingController],
@@ -62,6 +82,5 @@ describe('BeersComponent', () => {
       expect(component.addFavorite(4)).toBeTruthy();
       expect(component.addFavorite(1)).toBeFalsy();
     }
-  )
-  )
+  ))
 });
