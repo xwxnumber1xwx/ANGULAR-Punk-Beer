@@ -2,7 +2,8 @@ import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing'
 import { BeersComponent } from './beers.component';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MaxLengthPipe } from '../max-length.pipe'
+import { MaxLengthPipe } from '../max-length.pipe';
+import { FormsModule } from '@angular/forms';
 
 describe('BeersComponent', () => {
   let component: BeersComponent;
@@ -11,7 +12,7 @@ describe('BeersComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientTestingModule],
+      imports: [RouterTestingModule, HttpClientTestingModule, FormsModule],
       declarations: [BeersComponent, MaxLengthPipe],
       providers: []
     })

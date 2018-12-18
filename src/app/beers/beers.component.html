@@ -1,25 +1,32 @@
-<button id="search-button" (click)="getBeer(query)">Find Beers!</button>
+<div id="search-form" role="search">
+  <label for="order-option"></label>
+  <select appSortBy (sorted)="sort($event)" id="order-option">
+    <option disabled>Sort By...</option>
+    <option value="name">Name</option>
+    <option value="first_brewed">Year</option>
+    <option value="abv">Alcohol</option>
+  </select>
+  <input id="search-bar" type="search" [(ngModel)]="query" (keyup.enter)="getBeer(query)" aria-label="Write the name of the beer to search">
+  <input id="search-button" type="button" (click)="getBeer(query)">
+</div>
 
-<label for="order-option"></label>
-<select appSortBy (sorted)="sort($event)" id="order-option">
-  <option disabled>Sort By...</option>
-  <option value="name">Name</option>
-  <option value="first_brewed">Year</option>
-  <option value="abv">Alcohol</option>
-</select>
 
-<section class="flex" *ngIf="allBeers.length > 0; else noInfo">
-  <div id="{{beer.id}}" class="beer-info" *ngFor="let beer of allBeers">
-    <button class="favorite-icon" type="checkbox" [ngClass]="{'favorite': checkFavorite(beer.id)}" (click)="addFavorite(beer.id)"
-      aria-label="click to add or remove this beer to your favorite list"></button>
-    <img src="{{beer.image_url}}" alt="{{beer.name}}">
-    <article class="description">
-      <h2>{{beer.name | maxLength:30}}</h2>
-      <p>{{beer.description | maxLength:120 }}</p>
-    </article>
-    <button class="button" routerLink="/detail/{{beer.id}}" role="link">Read more...</button>
-  </div>
+
+<section id="container-results">
+  <ul class="flex" *ngIf="allBeers.length > 0; else noInfo">
+    <li id="{{beer.id}}" class="beer-info" *ngFor="let beer of allBeers">
+      <button class="favorite-icon" type="checkbox" [ngClass]="{'favorite': checkFavorite(beer.id)}" (click)="addFavorite(beer.id)"
+        aria-label="click to add or remove this beer to your favorite list"></button>
+      <img src="{{beer.image_url}}" alt="{{beer.name}}">
+      <article class="description">
+        <h2>{{beer.name | maxLength:30}}</h2>
+        <p>{{beer.description | maxLength:120 }}</p>
+      </article>
+      <button class="button" routerLink="/detail/{{beer.id}}" role="link">Read more...</button>
+    </li>
+  </ul>
+
+  <ng-template #noInfo>
+    <p>{{notFoundMessage}}</p>
+  </ng-template>
 </section>
-<ng-template #noInfo>
-  <p>{{notFoundMessage}}</p>
-</ng-template>

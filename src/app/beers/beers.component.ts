@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PunkBeerApiService } from '../punk-beer-api.service';
 import { StorageService } from '../storage.service';
 
@@ -9,16 +9,20 @@ import { StorageService } from '../storage.service';
 })
 export class BeersComponent implements OnInit {
 
-  @Input() query: string;
   allBeers: any[] = [];
   notFoundMessage: string = '';
   favorites: number[] = [];
   sortProperty: string = '';
+  query: string = '';
 
   constructor(
     private PunkBeerApi: PunkBeerApiService,
     private storageService: StorageService
   ) { }
+
+  focus() {
+    document.getElementById('search-bar').focus();
+  }
 
   ngOnInit() {
     this.allBeers = this.PunkBeerApi.getLastSearch();
@@ -31,6 +35,11 @@ export class BeersComponent implements OnInit {
         this.getBeer(event.target.value);
       }
     })*/
+    document.addEventListener('keypress', this.focus);
+  }
+
+  ngOnDestroy(){
+    document.removeEventListener('keypress', this.focus);
   }
 
   //set sort property and call the sortBy function

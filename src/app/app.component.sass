@@ -1,21 +1,29 @@
+header
+    text-align: center
+    background: #3867ff
+    color: white
 
+    nav
+        padding: 15px
 
-nav
-    background: white
-    text-align: right
-    height: 50px
-    margin: -8px
+        a
+            margin: 15px
+            color: white!important
+            margin-top: 10px
 
-    #title
-        text-align: left
-        display: inline
-        float: left
-        margin: 10px
+h1
+    margin: 0
 
-    a
-        margin: 15px
-        display: inline-block
+h2
+    display: inline
 
 #search-component
     text-align: center
     margin-top: 50px
+
+@media only (max-width: 500px)
+    h1, h2, a
+        margin: auto
+        width: 100%
+    h2
+        font-size: 18px
